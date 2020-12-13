@@ -1,44 +1,44 @@
-import React, { Component } from 'react'
+import React, { Component ,useContext,useState} from 'react'
 import Taro from '@tarojs/taro'
 import { View, Text,Button } from '@tarojs/components'
 import './index.less'
-import Child from './child';
+import Child from './child';  
 import { eventChannel } from '../../utils/event';
+import ElRate from '../../components/my-rate';
+import Toolbar from './components/Toolbar';
 
-export default class Index extends Component {
-
-  state = {
-    msg: 'hello ,welcom ,User  page!'
+const themes = {
+  light: {
+    foreground: "#000000",
+    background: "#eeeeee"
+  },
+  dark: {
+    foreground: "#ffffff",
+    background: "#222222"
   }
+};
+let num = 0;
+export const ThemeContext = React.createContext();
 
-  componentWillMount() {
-    eventChannel.on('acceptDataFromOpenerPage', data => {
-      console.log('on data', data)
-    })
+function App() {
+  let [mode,changeMode] = useState(themes.light);
+  const clickHandle = () => {
+    num++;
+    if(num % 2 === 0) {
+      changeMode(themes.light)
+    }else{
+      changeMode(themes.dark)
+
+    }
   }
-
-  componentDidMount() {
-    const params = Taro.getCurrentInstance().router.params;
-    console.log(params)
-  }
-
-  componentWillUnmount() { }
-
-  componentDidShow() { }
-
-  componentDidHide() { }
-
-  goback(){
-    Taro.navigateBack();
-  }
-
-  render() {
-    return (
-      <View className='index'>
-        <Text>User center </Text>
-        <Button onClick={this.goback}>返回</Button>
-        <Child msg={this.state.msg} />
-      </View>
-    )
-  }
+  return (
+    <ThemeContext.Provider value={mode}>
+      <Toolbar />
+      <Button onClick={clickHandle}>change color</Button>
+    </ThemeContext.Provider>
+  );
 }
+
+ 
+
+export default App;

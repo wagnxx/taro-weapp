@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Taro from '@tarojs/taro';
 import { View } from '@tarojs/components';
 import './index.less'
+
 class Child extends Component {
   // constructor(props){/
   //   super(props);

@@ -1,9 +1,9 @@
 export default {
   pages: [
+    'pages/contact/index',
     'pages/user/index',
     'pages/index/index',
     'pages/about/index',
-    'pages/contact/index',
   ],
   tabBar: {
     list: [

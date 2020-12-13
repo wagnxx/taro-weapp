@@ -1,3 +1,4 @@
+ const path = require('path');
 const config = {
   projectName: 'taroApp',
   date: '2020-12-3',
@@ -59,7 +60,20 @@ const config = {
         }
       }
     }
+  },
+  alias: {
+    '@': resolver('src'),
+    // '@/components': resolver('src/components'),
+    // '@/utils': resolver('src/utils'),
+    // '@/styles': resolver('src/styles'),
+    // '@/apis': resolver('src/apis'),
+    // "@/images":resolver('src/assets/images')
   }
+}
+
+
+function resolver(dir){
+  return path.resolve(__dirname, '..', dir);
 }
 
 module.exports = function (merge) {

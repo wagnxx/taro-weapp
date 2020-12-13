@@ -1,0 +1,28 @@
+.tabs {
+  &__nav {
+    display: flex;
+    transition: all 1s ease;
+
+    &__item {
+      position: relative;
+      flex: 1;
+      height: 80px;
+      line-height: 80px;
+      text-align: center;
+      // border: 1px solid #ddd;
+      box-sizing: border-box;
+
+      &--active::before {
+        position: absolute;
+        left: 0;
+        right: 0;
+        content: "";
+        width: 80%;
+        height: 2px;
+        margin: auto;
+        background: red;
+        bottom: 0;
+      }
+    }
+  }
+}

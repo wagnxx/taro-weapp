@@ -1,6 +1,10 @@
 {
   "extends": ["taro/react"],
   "rules": {
-    "no-unused-vars":[0]
-  }
+    "no-unused-vars":[0],
+    "jsx-quotes":"off"
+  },
+  "ignorePatterns": [
+    "config/**"
+  ]
 }
