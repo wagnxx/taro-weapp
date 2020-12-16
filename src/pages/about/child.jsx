@@ -1,20 +1,24 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect } from 'react'
 // eslint-disable-next-line no-unused-vars
 import Taro from '@tarojs/taro';
 import { View } from '@tarojs/components';
 
-class Child extends Component {
-  // constructor(props){
-  //   super(props);
-  // }
-  render() {
-    return (
-      // eslint-disable-next-line react/react-in-jsx-scope
-      <View>{this.props.msg}</View>
-    )
-  }
+const ChildList = ({ dataList }) => {
+
+  useEffect(() => {
+    console.log('dataList 更新了',dataList);
+  })
+  return <View className="list">
+    {
+      !dataList || !dataList.length ? '' :
+        dataList.map(item => {
+
+          return <View className="list__item" key={item.key}>
+            id: {item.id}
+            title:{item.title}
+          </View>
+        })
+    }
+  </View>
 }
-// const Child = (props) => {
-//   return <View>{props.msg}</View>
-// }
-export default Child;
+export default ChildList;

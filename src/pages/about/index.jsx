@@ -1,46 +1,49 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import Taro from '@tarojs/taro';
-import { View, Text,Button } from '@tarojs/components'
+import { View, Text, Button } from '@tarojs/components'
 import './index.less'
 import Child from './child';
 import { eventChannel } from '../../utils/event';
 
-export default class Index extends Component {
+const InitData = [{
+  id: 1,
+  title: 'pic1',
+  key: 1
+}];
+let num = 1;
+const UserPage = () => {
+  const state = {
+    msg: 'hello world',
+  };  
+  const [dataList, setDataList] = useState(InitData)
+  const getMoreData = async() => {
 
-  state = {
-    msg: 'hello ,welcom ,about page!'
+    let _data =await getProductList();
+    let InitData1=[..._data,...dataList]
+    // InitData.push(newdata);
+    // let _data=[...dataList,newdata]
+    setDataList(InitData1)
   }
+  return (<View className='index'>
+    <Text onClick={getMoreData}> 获取更多 </Text>
 
-  componentWillMount() { }
-
-  componentDidMount() { }
-
-  componentWillUnmount() { }
-
-  componentDidShow() { }
-
-  componentDidHide() { }
-
-  goUserPage(){
-    Taro.navigateTo({
-      url: '/pages/user/index?id=2&type=test',
-      success: function (res) {
-        // 通过eventChannel向被打开页面传送数据
-        console.log('navigate success')
-        eventChannel.emit('acceptDataFromOpenerPage', { data: 'test' })
-        // res.eventChannel.emit('acceptDataFromOpenerPage', { data: 'test' })
-      }
-    })
-  }
+    <Child msg={state.msg} dataList={dataList} />
+  </View>)
+}
+export default UserPage
 
 
-  render() {
-    return (
-      <View className='index'>
-        <Text>About </Text>
-        <Button onClick={this.goUserPage}>go user page</Button>
-        <Child msg={this.state.msg} />
-      </View>
-    )
-  }
+function getProductList() {
+  num++
+
+  let newdata = {
+    id: num,
+    title: 'pic--' + num,
+    key: num,
+  };
+  return new Promise((reslove, reject) => {
+    setTimeout(() => {
+      reslove([newdata])
+    }, 1000);
+  })
 }

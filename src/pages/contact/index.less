@@ -14,9 +14,20 @@
     border: 1px solid #ddd;
     // height: 100vh;
     padding: 20px;
+    transition: all 2s linear ;
+    animation:mymove 5s ;
 
     &__img {
       .img-full-mix();
     }
+  }
+}
+
+@keyframes mymove {
+  from {
+    display: none;
+  }
+  to {
+    display: block;
   }
 }
